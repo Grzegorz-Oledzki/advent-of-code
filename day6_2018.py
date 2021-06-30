@@ -3,7 +3,7 @@ with open("input6.txt", "r") as file:
 inputs = [x.split(", ") for x in inputs]
 
 
-def get_input_coords(inputs):
+def get_coords_from_input(inputs):
     first_coord, second_coord = [], []
     for coord in inputs:
         second_coord.append(int(coord[1]))
@@ -16,15 +16,11 @@ def manhattan_distance(x_coord, y_coord, row_idx, column_idx):
 
 
 def coords_limits(x_coords, y_coords):
-    min_x, max_x = min(x_coords), max(x_coords)
-    min_y, max_y = min(y_coords), max(y_coords)
-    return min_x, max_x, min_y, max_y
+    return min(x_coords), max(x_coords), min(y_coords), max(y_coords)
 
 
 def get_distance_to_all_points(x_coords, y_coords):
-    all_distances = []
-    all_x_coords = []
-    all_y_coords = []
+    all_distances, all_x_coords, all_y_coords = [], [], []
     for x_coord, y_coord in zip(x_coords, y_coords):
         distance = []
         for row_idx in range(max(x_coords)):
@@ -110,9 +106,8 @@ def get_max_finite_coords_numbers_of_closest_points(
     return max(finite_coords_numbers_of_closest_points)
 
 
-if __name__ == "__main__":
-
-    x_coords, y_coords = get_input_coords(inputs)
+def get_answer_for_part_1(inputs):
+    x_coords, y_coords = get_coords_from_input(inputs)
     all_distances, all_x_coords, all_y_coords = get_distance_to_all_points(
         x_coords, y_coords
     )
@@ -122,8 +117,9 @@ if __name__ == "__main__":
     zipped_coords_with_numbers_of_closest_points = zip_coords_with_numbers_of_closest_points(
         zip(x_coords, y_coords), all_numbers_of_closest_points
     )
-    print(
-        get_max_finite_coords_numbers_of_closest_points(
-            zipped_coords_with_numbers_of_closest_points, finite_coords
-        )
-    )
+    return f"Part 1:{get_max_finite_coords_numbers_of_closest_points(zipped_coords_with_numbers_of_closest_points,finite_coords)}"
+
+
+if __name__ == "__main__":
+
+    print(get_answer_for_part_1(inputs))
