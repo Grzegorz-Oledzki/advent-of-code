@@ -117,9 +117,29 @@ def get_answer_for_part_1(inputs):
     zipped_coords_with_numbers_of_closest_points = zip_coords_with_numbers_of_closest_points(
         zip(x_coords, y_coords), all_numbers_of_closest_points
     )
-    return f"Part 1:{get_max_finite_coords_numbers_of_closest_points(zipped_coords_with_numbers_of_closest_points,finite_coords)}"
+    return f"Part 1: {get_max_finite_coords_numbers_of_closest_points(zipped_coords_with_numbers_of_closest_points, finite_coords)} "
+
+
+def get_distance_to_all_coords(x_coords, y_coords):
+    all_distances = []
+    for row_idx in range(max(x_coords)):
+        for column_idx in range(max(y_coords)):
+            distance = []
+            for x_coord, y_coord in zip(x_coords, y_coords):
+                distance.append(
+                    manhattan_distance(row_idx, column_idx, x_coord, y_coord)
+                )
+            if sum(distance) < 10000:
+                all_distances.append(sum(distance))
+    return len(all_distances)
+
+
+def get_answer_to_part_2(inputs):
+    x_coords, y_coords = get_coords_from_input(inputs)
+    return f"Part 2: {get_distance_to_all_coords(x_coords,y_coords)}"
 
 
 if __name__ == "__main__":
 
     print(get_answer_for_part_1(inputs))
+    print(get_answer_to_part_2(inputs))
