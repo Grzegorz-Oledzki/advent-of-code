@@ -1,6 +1,9 @@
 with open("input6.txt", "r") as file:
     inputs = file.read().split("\n")
+from collections import namedtuple
+
 inputs = [x.split(", ") for x in inputs]
+Point = namedtuple("Point", ["x", "y"])
 
 
 def get_coords_from_input(inputs):
@@ -9,8 +12,13 @@ def get_coords_from_input(inputs):
     return x_coords, y_coords
 
 
-def manhattan_distance(x_coord, y_coord, row_idx, column_idx):
-    return abs(x_coord - row_idx) + abs(y_coord - column_idx)
+def get_points_for_manhattan_distance(row_idx, column_idx, x_coord, y_coord):
+    return Point(x=x_coord, y=y_coord), Point(x=row_idx, y=column_idx)
+
+
+def manhattan_distance(first_and_second_points):
+    first_point, second_point = first_and_second_points[0], first_and_second_points[1]
+    return abs(first_point.x - second_point.x) + abs(first_point.y - second_point.y)
 
 
 def coords_extremes(x_coords, y_coords):
@@ -24,7 +32,11 @@ def get_distance_to_all_points(x_coords, y_coords):
         for row_idx in range(max(x_coords)):
             for column_idx in range(max(y_coords)):
                 distance.append(
-                    manhattan_distance(x_coord, y_coord, row_idx, column_idx)
+                    manhattan_distance(
+                        get_points_for_manhattan_distance(
+                            row_idx, column_idx, x_coord, y_coord
+                        )
+                    )
                 )
                 all_x_coords.append(row_idx)
                 all_y_coords.append(column_idx)
@@ -84,7 +96,9 @@ def get_all_numbers_of_closest_points(
     return numbers_of_closest_points, finite_coords
 
 
-def zip_coords_with_numbers_of_closest_points(coords_to_zip, all_numbers_of_closest_points):
+def zip_coords_with_numbers_of_closest_points(
+    coords_to_zip, all_numbers_of_closest_points
+):
     coords_and_number_of_points = []
     for idx, coords in enumerate(coords_to_zip):
         coords_and_number_of_points.append([coords, all_numbers_of_closest_points[idx]])
@@ -118,7 +132,11 @@ def get_distance_to_all_coords(x_coords, y_coords):
     for row_idx in range(max(x_coords)):
         for column_idx in range(max(y_coords)):
             distances = [
-                manhattan_distance(row_idx, column_idx, x_coord, y_coord)
+                manhattan_distance(
+                    get_points_for_manhattan_distance(
+                        row_idx, column_idx, x_coord, y_coord
+                    )
+                )
                 for x_coord, y_coord in zip(x_coords, y_coords)
             ]
             sum_of_distances = sum(distances)
