@@ -1,4 +1,4 @@
-input5 = [open("input5.txt").read()]
+input5 = [open("input5_2018.txt").read()]
 
 
 def get_separate_letters(inputs):
@@ -59,6 +59,7 @@ def get_inputs_without_letter(inputs, idx_of_deleted_letter):
             ):
                 inputs.pop(inputs.index(compare_letter))
     return inputs
+
 
 def get_answer_part_2(inputs):
     letters_to_find = get_specific_letters(inputs)

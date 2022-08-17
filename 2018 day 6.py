@@ -1,4 +1,4 @@
-with open("input6.txt", "r") as file:
+with open("input6_2018.txt", "r") as file:
     inputs = file.read().split("\n")
 from collections import namedtuple
 
@@ -82,7 +82,10 @@ def get_all_numbers_of_closest_points(
     numbers_of_closest_points = []
     finite_coords = []
     for distances_index, distance in enumerate(all_distances):
-        closest_point, finite_coord = get_number_of_closest_points_and_check_if_coord_is_finite(
+        (
+            closest_point,
+            finite_coord,
+        ) = get_number_of_closest_points_and_check_if_coord_is_finite(
             all_distances,
             all_x_coords,
             all_y_coords,
