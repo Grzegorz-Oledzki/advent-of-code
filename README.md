@@ -1,4 +1,4 @@
-Hi, these are my solutions to the advent of code exercises I started my python adventure with:
+Hi, these are my solutions to the advent of code exercises I started my python adventure with (at beginning of 2020):
 
 https://adventofcode.com/2020
 
